@@ -1,0 +1,188 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-animate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/locale/da.js"></script>
+
+</head>
+<body>
+<div class="center-block" style="width: 600px;margin-top: auto;margin-bottom: auto;height: 100%" ng-app="multiplicationApp" ng-controller="myCtrl as ctrl">
+    <div class="container-fluid">
+        <div class="col-xs-8 col-xs-offset-2">
+            <h1>Multiplikation</h1>
+        </div>
+        <div class="panel-group col-xs-8 col-xs-offset-2">
+
+            <form class="panel panel-default form-inline">
+                <div class="panel-body">
+                    <div class="form-group form-group-sm" ng-class="ctrl.validationClass">
+                        <label class="control-label" for="solution"> {{ctrl.problem}} = </label>
+                        <input style="width: 70px;" class="form-control input-sm" id="solution"
+                               ng-model="ctrl.proposedSolution" autocomplete="off">
+                        <ng-show ng-show="ctrl.validationShow">
+                            <span ng-show="ctrl.success" class="glyphicon glyphicon-ok form-control-feedback"
+                                  aria-hidden="true"></span>
+                            <span ng-show="ctrl.error" class="glyphicon glyphicon-remove form-control-feedback"
+                                  aria-hidden="true"></span>
+                        </ng-show>
+                    </div>
+
+                    <button id="ok" class="btn btn-default btn-sm" ng-disabled="ctrl.solved" ng-class="ctrl.solved ? 'disabled' : ''" ng-click="ctrl.validate()">Ok</button>
+                    <button id="nyt-stykke" class="btn btn-primary btn-sm pull-right" ng-click="ctrl.newProblem()">Nyt stykke</button>
+                </div>
+            </form>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Results
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-striped">
+                            <tr>
+                                <th>Stykke</th>
+                                <th>Løsning</th>
+                                <th>Tid (s)</th>
+                                <th></th>
+                            </tr>
+                            <tbody>
+                            <tr ng-repeat="stat in ctrl.doneProblems">
+                                <td>{{stat.problem}}</td>
+                                <td>{{stat.proposedSolution}}</td>
+                                <td>{{stat.time | number:2}}</td>
+                                <td>
+                                    <span ng-show="stat.correct" class="glyphicon glyphicon-ok pull-right"
+                                          style="color: #3c763d;" aria-hidden="true"></span>
+                                    <span ng-show="!stat.correct" class="glyphicon glyphicon-remove pull-right"
+                                          style="color: #a94442;" aria-hidden="true"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+    var app = angular.module('multiplicationApp', []);
+    app.controller('myCtrl', function ($scope, focus) {
+        var vm = this;
+        vm.validationShow = false;
+        vm.problem = null;
+        vm.proposedSolution = null;
+        vm.solution = null;
+        vm.validationClass = "";
+        vm.validationIconClass = "";
+        vm.success = false;
+        vm.error = false;
+        vm.doneProblems = [];
+        vm.solved = false;
+
+
+        var startTime = null;
+        var endTime = null;
+        var status = null;
+
+
+        function noSolution() {
+            return !vm.proposedSolution;
+        }
+
+        vm.validate = function () {
+            if (noSolution()) {
+                return;
+            }
+            endTime = moment();
+            var timeToSolve = moment.duration(endTime.diff(startTime)).asSeconds();
+
+            status = {problem: vm.problem, proposedSolution: vm.proposedSolution, time: timeToSolve};
+            vm.validationShow = true;
+            if (vm.proposedSolution == vm.solution) {
+                setSuccessValues();
+            } else {
+                setErrorValues();
+            }
+            vm.doneProblems.unshift(status);
+            vm.solved = true;
+            focus('nyt-stykke');
+        };
+        vm.newProblem = function () {
+            var first = getRandomInt(0, 10);
+            var second = getRandomInt(0, 10);
+            vm.problem = "" + first + " * " + second;
+            vm.solution = first * second;
+            vm.proposedSolution = null;
+            vm.solved = false;
+
+            clearValidationIndicators();
+            startTime = moment();
+            focus('solution');
+        };
+        vm.newProblem();
+
+        function clearValidationIndicators() {
+            vm.validationShow = false;
+            vm.validationClass = "";
+            vm.success = false;
+            vm.error = false;
+        }
+
+        function setSuccessValues() {
+            vm.validationClass = "has-success has-feedback";
+            vm.success = true;
+            vm.error = false;
+            status.correct = true;
+        }
+
+        function setErrorValues() {
+            vm.validationClass = "has-error has-feedback";
+            vm.error = true;
+            vm.success = false;
+            status.correct = false;
+        }
+
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+    });
+    app.factory('focus', function($timeout, $window) {
+        return function(id) {
+            $timeout(function() {
+                var element = $window.document.getElementById(id);
+                if(element) {
+                    element.focus();
+                }
+
+            });
+        };
+    });
+</script>
+
+</body>
+</html>
