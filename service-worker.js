@@ -1,4 +1,4 @@
-var CACHE = "v2";
+var CACHE = "v3";
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
@@ -7,13 +7,13 @@ self.addEventListener('install', function(event) {
             return cache.addAll([
                 '/math-multiplication/',
                 '/math-multiplication/index.html',
-                '/img/math-icon-48X48.svg',
-                '/img/math-icon-72X72.svg',
-                '/img/math-icon-96X96.svg',
-                '/img/math-icon-144X144.svg',
-                '/img/math-icon-168X168.svg',
-                '/img/math-icon-192X192.svg',
-                '/img/math-icon-512X512.svg'
+                '/math-multiplication/img/math-icon-48X48.svg',
+                '/math-multiplication/img/math-icon-72X72.svg',
+                '/math-multiplication/img/math-icon-96X96.svg',
+                '/math-multiplication/img/math-icon-144X144.svg',
+                '/math-multiplication/img/math-icon-168X168.svg',
+                '/math-multiplication/img/math-icon-192X192.svg',
+                '/math-multiplication/img/math-icon-512X512.svg'
 /*
                 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
                 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
