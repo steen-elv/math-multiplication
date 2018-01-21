@@ -1,12 +1,12 @@
-var CACHE = "v1";
+var CACHE = "v2";
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open(CACHE).then(function(cache) {
             console.log("Caching all necessary documents");
             return cache.addAll([
-                '/',
-                '/index.html',
+                '/math-multiplication/',
+                '/math-multiplication/index.html',
                 '/img/math-icon-48X48.svg',
                 '/img/math-icon-72X72.svg',
                 '/img/math-icon-96X96.svg',
