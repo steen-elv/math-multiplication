@@ -45,7 +45,7 @@
                     <div class="form-group form-group-sm mb-2" ng-class="ctrl.validationClass">
                         <label class="col-form-label col-form-label-sm mr-1" for="solution"> {{ctrl.problem}}
                             = </label>
-                            <input class="form-control-sm" id="solution"
+                            <input type="number" class="form-control-sm" id="solution"
                                    ng-model="ctrl.proposedSolution" autocomplete="off">
                         <ng-show ng-show="ctrl.validationShow">
                             <span ng-show="ctrl.success" class="glyphicon glyphicon-ok form-control-feedback"
