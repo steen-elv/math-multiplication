@@ -13,7 +13,7 @@ self.addEventListener('install', function(event) {
                 '/img/math-icon-144X144.svg',
                 '/img/math-icon-168X168.svg',
                 '/img/math-icon-192X192.svg',
-                '/img/math-icon-512X512.svg',
+                '/img/math-icon-512X512.svg'
 /*
                 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
                 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
