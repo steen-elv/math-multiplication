@@ -1,6 +1,6 @@
 {
   "name": "Multiplication",
-  "short_name": "Multiplication",
+  "short_name": "2x2",
   "scope": "/math-multiplication/",
   "start_url": "/math-multiplication/",
   "display": "standalone",
@@ -30,7 +30,7 @@
   }, {
     "src": "img/math-icon-192X192.svg",
     "sizes": "192x192",
-    "type": "image/xml+svg"
+    "type": "image/png"
   }, {
       "src": "img/math-icon-512X512.svg",
       "sizes": "512x512",
