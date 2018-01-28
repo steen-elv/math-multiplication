@@ -8,32 +8,32 @@
   "theme_color": "#3c763d",
   "description": "Presenting random multiplication problems to the user",
   "icons": [{
-    "src": "img/math-icon-48X48.svg",
+    "src": "img/math-icon-48X48.png",
     "sizes": "48x48",
-    "type": "image/xml+svg"
+    "type": "image/png"
   }, {
-    "src": "img/math-icon-72X72.svg",
+    "src": "img/math-icon-72X72.png",
     "sizes": "72x72",
-    "type": "image/xml+svg"
+    "type": "image/png"
   }, {
-    "src": "img/math-icon-96X96.svg",
+    "src": "img/math-icon-96X96.png",
     "sizes": "96x96",
-    "type": "image/xml+svg"
+    "type": "image/png"
   }, {
-    "src": "img/math-icon-144X144.svg",
+    "src": "img/math-icon-144X144.png",
     "sizes": "144x144",
-    "type": "image/xml+svg"
+    "type": "image/png"
   }, {
-    "src": "img/math-icon-168X168.svg",
+    "src": "img/math-icon-168X168.png",
     "sizes": "168x168",
-    "type": "image/xml+svg"
+    "type": "image/png"
   }, {
-    "src": "img/math-icon-192X192.svg",
+    "src": "img/math-icon-192X192.png",
     "sizes": "192x192",
     "type": "image/png"
   }, {
-      "src": "img/math-icon-512X512.svg",
+      "src": "img/math-icon-512X512.png",
       "sizes": "512x512",
-      "type": "image/xml+svg"
+      "type": "image/png"
     }]
 }
